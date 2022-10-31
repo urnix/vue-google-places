@@ -125,7 +125,7 @@ export default {
         }
       })
     
-      this.enterPressListener = window.google.maps.event.addDomListener(this.element, 'keydown', (e) => {
+      this.enterPressListener = this.element.addEventListener('keydown', function (e) {
         e.cancelBubble = true;
         // If enter key, or tab key
         if (e.keyCode === 13 || e.keyCode === 9) {
