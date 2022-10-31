@@ -29,7 +29,8 @@ export default {
     version: String,
     types: [String, Array],
     addressFields: Object,
-    fields: Array
+    fields: Array,
+    skipEnterPressListener: Boolean
   },
   data () {
     return {
@@ -116,7 +117,7 @@ export default {
         }
         _addEventListener.apply(input, [type, listener])
       }
-  
+
       input.addEventListener = addEventListenerWrapper
     },
     setupInput () {
@@ -140,7 +141,9 @@ export default {
           }
         }
       };
-      this.element.addEventListener('keydown', this.enterPressListener);
+      if (!this.skipEnterPressListener) {
+        this.element.addEventListener('keydown', this.enterPressListener);
+      }
 
       this.element.addEventListener('focus', () => {
         this.hasDownBeenPressed = false
