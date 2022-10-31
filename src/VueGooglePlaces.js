@@ -147,6 +147,8 @@ export default {
     setupGoogle () {
       const options = {}
 
+      options.fields = this.fields;
+
       if (typeof this.types === 'string') {
         options.types = [this.types]
       } else if (Array.isArray(this.types)) {
