@@ -124,13 +124,13 @@ export default {
           this.hasDownBeenPressed = true;
         }
       })
-    
-      this.enterPressListener = window.google.maps.event.addDomListener(this.element, 'keydown', (e) => {
+
+      this.enterPressListener = function (e) {
         e.cancelBubble = true;
         // If enter key, or tab key
         if (e.keyCode === 13 || e.keyCode === 9) {
           // If user isn't navigating using arrows and this hasn't ran yet
-          if (!this.hasDownBeenPressed && !e.hasRanOnce) {
+          if (!this$1.hasDownBeenPressed && !e.hasRanOnce) {
             let event = { keyCode: 40, hasRanOnce: true }
             if (window.KeyboardEvent) {
               event = new window.KeyboardEvent('keydown', event)
@@ -138,7 +138,8 @@ export default {
             google.maps.event.trigger(e.target, 'keydown', event)
           }
         }
-      })
+      };
+      this.element.addEventListener('keydown', this.enterPressListener);
 
       this.element.addEventListener('focus', () => {
         this.hasDownBeenPressed = false
@@ -281,7 +282,7 @@ export default {
   },
   beforeDestroy () {
     if (this.enterPressListener) {
-      window.google.maps.event.removeListener(this.enterPressListener)
+      this.element.removeEventListener('keydown', this.enterPressListener);
     }
   }
 }
