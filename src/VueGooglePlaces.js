@@ -28,7 +28,8 @@ export default {
     value: String,
     version: String,
     types: [String, Array],
-    addressFields: Object
+    addressFields: Object,
+    fields: Array
   },
   data () {
     return {
@@ -147,6 +148,8 @@ export default {
     },
     setupGoogle () {
       const options = {}
+
+      options.fields = this.fields;
 
       if (typeof this.types === 'string') {
         options.types = [this.types]
